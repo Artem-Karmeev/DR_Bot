@@ -1,29 +1,44 @@
 from classes.users_class import File
 
-class User_data(File):
+class UserData(File):
 
-    def fill_list(self, user_id: int, index: int, value: str):
-        """Заполняет вложенный лист по индексу для последующей записи в файл"""
-        self.users_id[user_id][3][index] = value
-        print(self.users_id[user_id])
 
-        
-    def check_flag(self, user_id: int) -> int:
-        """Вернет список с флагами пользователя по id"""
+    """Унаследован от File. Работа с словарями."""
+
+    def check_flag(self, user_id: int) -> list:
+        """Вернет список с флагами"""
         return self.users_id[user_id]
 
 
-    def change_flag(self, user_id: int, flag: int, index: int ):
-        """изменяет флаг с указанным индексом в словаре user_id"""
-        self.users_id[user_id][index] = flag  
+    def change_head_flag(self, user_id: int, flag: int):
+        """изменяет флаг с индексом 1"""
+        self.users_id[user_id][1] = flag 
+
+
+    def change_support_flag(self, user_id: int, flag: int):
+        """изменяет флаг с индексом 2"""
+        self.users_id[user_id][2] = flag
+
 
     def check_id(self, user_id: int) -> bool:
         """Проверка на наличие id в словаре"""
         return user_id in self.users_id
 
 
-    def finish_processing(self, user_id: int):
+    def finish(self, user_id: int):
         """Удаляет id из словаря"""
         self.users_data.pop(user_id)
 
+    def return_data(self, user_id: int) -> str:
+        """Покажет список имен"""
+        data = self.users_data[user_id]
+        new_str = ''
+        for i in range(len(data)):
+            new_str += f'{i}. {data[i][1]} {data[i][0]} {data[i][2]}\n'
+        return new_str
+    
+
+    def kick_data(self, user_id: int):
+        """Удалит из словаря 'users_data' пару по id"""
+        self.users_data.pop(user_id)
 
