@@ -4,8 +4,7 @@ from classes.init_class import us, sec, ud
 
 
 async def startup(_):
-    print('Start')
-    us.open()
+    print('Hello!')
     
 
 if __name__ == '__main__':

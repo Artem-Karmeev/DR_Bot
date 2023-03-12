@@ -6,5 +6,10 @@ from classes.init_class import us, sec, ud
 async def show(message: types.Message):
     us.extract_data(message.from_user.id)
     st = ud.return_data(message.from_user.id)
-    ud.kick_data(message.from_user.id)
-    await message.answer(st)
+    
+    if st:
+        await message.answer(st)
+        ud.kick_data(message.from_user.id)
+    else:
+        await message.answer('Список пуст')
+        ud.kick_data(message.from_user.id)

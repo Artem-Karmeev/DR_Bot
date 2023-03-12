@@ -2,43 +2,52 @@ from classes.users_class import File
 
 class UserData(File):
 
-
     """Унаследован от File. Работа с словарями."""
 
-    def check_flag(self, user_id: int) -> list:
-        """Вернет список с флагами"""
-        return self.users_id[user_id]
-
-
-    def change_head_flag(self, user_id: int, flag: int):
-        """изменяет флаг с индексом 1"""
-        self.users_id[user_id][1] = flag 
-
-
-    def change_support_flag(self, user_id: int, flag: int):
-        """изменяет флаг с индексом 2"""
-        self.users_id[user_id][2] = flag
-
-
     def check_id(self, user_id: int) -> bool:
-        """Проверка на наличие id в словаре"""
+        """Проверка на наличие id в словаре users_id"""
         return user_id in self.users_id
 
 
-    def finish(self, user_id: int):
-        """Удаляет id из словаря"""
-        self.users_data.pop(user_id)
-
     def return_data(self, user_id: int) -> str:
-        """Покажет список имен"""
-        data = self.users_data[user_id]
+        """Вернет события пользователя"""
+        data: list = self.users_data[user_id]
         new_str = ''
         for i in range(len(data)):
-            new_str += f'{i}. {data[i][1]} {data[i][0]} {data[i][2]}\n'
+            new_str += f'📅 {data[i][0]} 📝 {data[i][1]}\n'
         return new_str
-    
+
 
     def kick_data(self, user_id: int):
-        """Удалит из словаря 'users_data' пару по id"""
-        self.users_data.pop(user_id)
+        """Удалит из словаря 'users_data' пару по id если он там есть """
+        if user_id in self.users_data:
+            self.users_data.pop(user_id)
 
+
+    def search(self, user_id: int, search: str, flag: int = False) -> str:
+        
+        """Вернет все вхождения в value словаря user_data
+        если передать флаг True, вернет значения включая индексы"""
+        
+        result_search = ''
+        if flag:
+            for i in range(len(self.users_data[user_id])):
+                if search in self.users_data[user_id][i][0] or search in self.users_data[user_id][i][1]:
+                    result_search += f'{i} 📅 {self.users_data[user_id][i][0]} 📝 {self.users_data[user_id][i][1]}\n'
+            return result_search
+        else:
+            for i in range(len(self.users_data[user_id])):
+                if search in self.users_data[user_id][i][0] or search in self.users_data[user_id][i][1]:
+                    result_search += f'📅 {self.users_data[user_id][i][0]} 📝 {self.users_data[user_id][i][1]}\n'
+            return result_search
+
+
+    def return_len(self, user_id: int) -> int:
+        """Вернет длину value из словаря users_data"""
+        return len(self.users_data[user_id])
+    
+
+    def del_event(self, user_id: int, index: int):
+        """Удалит событие из value пользователя"""
+        self.users_data[user_id].pop(index)
+        print(self.users_data)
