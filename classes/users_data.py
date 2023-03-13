@@ -11,10 +11,9 @@ class UserData(File):
 
     def return_data(self, user_id: int) -> str:
         """Вернет события пользователя"""
-        data: list = self.users_data[user_id]
         new_str = ''
-        for i in range(len(data)):
-            new_str += f'📅 {data[i][0]} 📝 {data[i][1]}\n'
+        for i in range(len(self.users_data[user_id])):
+            new_str += f'🆔: {i}   📆: {self.users_data[user_id][i][0]}   📝: {self.users_data[user_id][i][1]}\n'
         return new_str
 
 
@@ -24,7 +23,7 @@ class UserData(File):
             self.users_data.pop(user_id)
 
 
-    def search(self, user_id: int, search: str, flag: int = False) -> str:
+    def search(self, user_id: int, search: str, flag: bool = True) -> str:
         
         """Вернет все вхождения в value словаря user_data
         если передать флаг True, вернет значения включая индексы"""
@@ -33,12 +32,12 @@ class UserData(File):
         if flag:
             for i in range(len(self.users_data[user_id])):
                 if search in self.users_data[user_id][i][0] or search in self.users_data[user_id][i][1]:
-                    result_search += f'{i} 📅 {self.users_data[user_id][i][0]} 📝 {self.users_data[user_id][i][1]}\n'
+                    result_search += f'🆔: {i}   📆: {self.users_data[user_id][i][0]}   📝: {self.users_data[user_id][i][1]}\n'
             return result_search
         else:
             for i in range(len(self.users_data[user_id])):
                 if search in self.users_data[user_id][i][0] or search in self.users_data[user_id][i][1]:
-                    result_search += f'📅 {self.users_data[user_id][i][0]} 📝 {self.users_data[user_id][i][1]}\n'
+                    result_search += f'📆: {self.users_data[user_id][i][0]}   📝: {self.users_data[user_id][i][1]}\n'
             return result_search
 
 

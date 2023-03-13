@@ -9,4 +9,4 @@ async def my_del(message: types.Message):
     if entry:
         ud.extract_data(message.from_user.id)
         vk.change_head_flag(message.from_user.id , 2)
-        await message.answer('Введи искомое значение👀: ', parse_mode="html")
+        await message.answer('Что ищем?👀', parse_mode="html")
